@@ -26,6 +26,9 @@ export class PortalRunnerScene extends Phaser.Scene {
   private enemySpeed = 92;
   private nextEnemyScore = 4;
   private shipFacingLeft = false;
+  private bgMusic!: Phaser.Sound.BaseSound;
+  private sfxCrystal!: Phaser.Sound.BaseSound;
+  private sfxEnemyHit!: Phaser.Sound.BaseSound;
 
   constructor() {
     super("PortalRunnerScene");
@@ -33,6 +36,9 @@ export class PortalRunnerScene extends Phaser.Scene {
 
   preload() {
     this.load.image("ship", "/assets/images/ship.webp");
+    this.load.audio("bgMusic", "/assets/sounds/background-music.mp3");
+    this.load.audio("sfxCrystal", "/assets/sounds/cristal-collect.mp3");
+    this.load.audio("sfxEnemyHit", "/assets/sounds/enemy-hit.mp3");
   }
 
   create() {
@@ -50,6 +56,10 @@ export class PortalRunnerScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.player, this.crystals, this.collectCrystal, undefined, this);
     this.physics.add.overlap(this.player, this.enemies, this.hitEnemy, undefined, this);
+
+    this.bgMusic = this.sound.add("bgMusic", { loop: true, volume: 0.15 });
+    this.sfxCrystal = this.sound.add("sfxCrystal", { volume: 0.55 });
+    this.sfxEnemyHit = this.sound.add("sfxEnemyHit", { volume: 0.65 });
 
     this.cursors = this.input.keyboard!.createCursorKeys();
     this.keys = this.input.keyboard!.addKeys("W,A,S,D,ENTER,R") as typeof this.keys;
@@ -199,6 +209,9 @@ export class PortalRunnerScene extends Phaser.Scene {
     for (let index = 0; index < 3; index += 1) {
       this.spawnEnemy();
     }
+
+    this.bgMusic.stop();
+    this.bgMusic.play();
   }
 
   private movePlayer() {
@@ -246,6 +259,7 @@ export class PortalRunnerScene extends Phaser.Scene {
     this.updateHud();
     this.spawnCrystal();
 
+    this.sfxCrystal.play();
     this.cameras.main.flash(90, 38, 255, 136, false);
 
     if (this.score >= this.nextEnemyScore) {
@@ -264,6 +278,7 @@ export class PortalRunnerScene extends Phaser.Scene {
     this.lastDamageAt = this.time.now;
     this.lives -= 1;
     this.updateHud();
+    this.sfxEnemyHit.play();
     this.player.setTint(0xff315d);
     this.cameras.main.shake(120, 0.008);
 
@@ -314,6 +329,7 @@ export class PortalRunnerScene extends Phaser.Scene {
 
   private endGame() {
     this.phase = "gameOver";
+    this.bgMusic.stop();
     this.player.setVisible(false);
     this.player.setVelocity(0, 0);
     this.crystals.clear(true, true);
