@@ -20,6 +20,7 @@ Esta aplicação ainda está em desenvolvimento e muitas funcionalidades podem e
 - FastAverageColor
 - Lodash  
 - Swiper  
+- Phaser 3
 - The Rick and Morty API
 
 ---
@@ -66,6 +67,20 @@ yarn dev
 ```
 
 5. Abra http://localhost:3000 no navegador.
+
+## Mini-game Portal Runner
+
+O projeto inclui uma rota `/game` com o mini-game **Portal Runner**, criado com Phaser 3 e integrado ao Next.js com carregamento apenas no client para evitar problemas de SSR com `window` e `document`.
+
+Objetivo: controlar o Morty, coletar cristais/portais verdes para somar pontos e evitar inimigos vermelhos/roxos. A dificuldade aumenta gradualmente conforme a pontuacao sobe.
+
+Controles:
+
+- `Enter`: iniciar o jogo
+- `WASD` ou setas: mover o Morty
+- `R` ou `Enter`: reiniciar apos Game Over
+
+Visualmente, o jogo usa assets locais do projeto e formas geradas pelo Phaser para cristais, inimigos, brilho neon e fundo sci-fi/cartoon. Nenhum asset externo pago foi adicionado.
 
 
 ## 👤 Autor

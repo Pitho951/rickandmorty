@@ -168,7 +168,22 @@ export default function Home() {
   return (
     <React.Fragment>
       <Header>
-        <Box component={"nav"} padding="2rem" position={"relative"} sx={{ backgroundColor: "var(--window-background)" }}></Box>
+        <Box component={"nav"} padding="2rem" position={"relative"} sx={{ backgroundColor: "var(--window-background)", display: "flex", justifyContent: "flex-end" }}>
+          <Link
+            href="/game"
+            sx={{
+              color: "#E6FFB4",
+              fontFamily: "Orbitron, sans-serif",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 0,
+              textShadow: "0 0 12px rgba(184, 255, 82, .45)",
+              "&:hover": { color: "#00fffb" },
+            }}
+          >
+            Portal Runner
+          </Link>
+        </Box>
         <Box>
           <ImageTitle src="/assets/images/title.webp" />
           <H1>
@@ -177,24 +192,34 @@ export default function Home() {
           </H1>
         </Box>
         <Box display={"flex"} flexGrow={1} gap={"5rem"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"} >
-          <HeaderCard delay={0}>
+          <HeaderCard
+            delay={0}
+            onClick={() => document.getElementById("personagens")?.scrollIntoView({ behavior: "smooth" })}
+            sx={{ cursor: "pointer" }}
+          >
             <span >Explore personagens</span>
             <img src="/assets/images/portal.webp" width={100} height={100} style={{ filter: "drop-shadow(0 0 5px #E6FFB4)" }} />
             <img src="/assets/images/morty.webp" style={{ position: "absolute", top: "-139px", filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
           </HeaderCard>
-          <HeaderCard delay={1}>
+          <HeaderCard
+            delay={1}
+            onClick={() => document.getElementById("sobre")?.scrollIntoView({ behavior: "smooth" })}
+            sx={{ cursor: "pointer" }}
+          >
             <span>Sobre o Projeto</span>
             <img src="/assets/images/hat.webp" width={100} height={100} style={{ filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
           </HeaderCard>
-          <HeaderCard delay={2}>
-            <span>Get Started</span>
-            <img src="/assets/images/ship.webp" width={150} height={100} style={{ filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
-            <img src="/assets/images/rick.webp" style={{ position: "absolute", top: "-161px", filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
-          </HeaderCard>
+          <a href="/game" style={{ textDecoration: "none", color: "inherit" }}>
+            <HeaderCard delay={2} sx={{ cursor: "pointer" }}>
+              <span>Get Started</span>
+              <img src="/assets/images/ship.webp" width={150} height={100} style={{ filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
+              <img src="/assets/images/rick.webp" style={{ position: "absolute", top: "-161px", filter: "drop-shadow(0 0 5px rgba(0, 255, 251, .5))" }} />
+            </HeaderCard>
+          </a>
         </Box>
       </Header>
       <Box component={"main"} sx={{ backgroundColor: "var(--window-background)" }}>
-        <Box p="2rem">
+        <Box id="personagens" p="2rem">
           <Typography textAlign={"center"} variant="h2" fontFamily={"Orbitron, sans-serif"} fontSize={"2rem"} fontWeight={600}>Personagens do Multiverso</Typography>
           <Typography textAlign={"center"} mt={2}>
             Prepare-se para conhecer os personagens mais icônicos (e bizarros) do universo de Rick and Morty — todos reunidos em um só lugar!<br />
@@ -327,7 +352,7 @@ export default function Home() {
             </Grid>
           </Grid>
         </Box>
-        <Box p={"2rem"} mt={"4rem"} sx={{ backgroundColor: "#151622" }}>
+        <Box id="sobre" p={"2rem"} mt={"4rem"} sx={{ backgroundColor: "#151622" }}>
           <Grid container alignItems={"center"} justifyContent={"center"} >
             <Grid size={{ md: 6 }}>
               <Typography textAlign={"center"} variant="h2" fontFamily={"Orbitron, sans-serif"} fontSize={"2rem"} fontWeight={600}>Sobre o Projeto</Typography>
