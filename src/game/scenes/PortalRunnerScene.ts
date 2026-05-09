@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 
 type GamePhase = "start" | "playing" | "gameOver";
+type ArcadeArg = Phaser.Types.Physics.Arcade.GameObjectWithBody | Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody | Phaser.Tilemaps.Tile;
 
 const GAME_WIDTH = 960;
 const GAME_HEIGHT = 540;
@@ -237,7 +238,7 @@ export class PortalRunnerScene extends Phaser.Scene {
     });
   }
 
-  private collectCrystal(_player: Phaser.Types.Physics.Arcade.GameObjectWithBody, crystalObject: Phaser.Types.Physics.Arcade.GameObjectWithBody) {
+  private collectCrystal(_player: ArcadeArg, crystalObject: ArcadeArg) {
     const crystal = crystalObject as Phaser.Physics.Arcade.Sprite;
     crystal.destroy();
 
@@ -254,7 +255,7 @@ export class PortalRunnerScene extends Phaser.Scene {
     }
   }
 
-  private hitEnemy(_player: Phaser.Types.Physics.Arcade.GameObjectWithBody, enemyObject: Phaser.Types.Physics.Arcade.GameObjectWithBody) {
+  private hitEnemy(_player: ArcadeArg, enemyObject: ArcadeArg) {
     if (this.time.now - this.lastDamageAt < DAMAGE_COOLDOWN) {
       return;
     }
